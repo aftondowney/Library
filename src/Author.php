@@ -20,11 +20,6 @@
             return $this->name;
         }
 
-        function setId($id)
-        {
-            $this->id = $id;
-        }
-
         function getId()
         {
             return $this->id;

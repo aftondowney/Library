@@ -27,7 +27,7 @@
         function testSave()
         {
             //Arrange
-            $name = "History";
+            $name = "Stephen King";
             $id = null;
             $test_author = new Author($name, $id);
             $test_author->save();
@@ -42,10 +42,10 @@
         function testGetAll()
         {
             //Arrange
-            $name = "Econ";
+            $name = "John Clancy";
             $id = 2;
 
-            $name2 = "Physics";
+            $name2 = "Robert Ludlum";
             $id2 = 3;
 
             $test_author = new Author($name, $id);
@@ -63,10 +63,10 @@
         function testDeleteAll()
         {
             //Arrange
-            $name = "Econ";
+            $name = "John Clancy";
             $id = 2;
 
-            $name2 = "Physics";
+            $name2 = "Robert Ludlum";
             $id2 = 3;
 
             $test_author = new Author($name, $id);
@@ -85,27 +85,27 @@
         function testUpdateAuthor()
         {
             //Arrange
-            $name = "Econ";
+            $name = "John Clancy";
             $id = 2;
 
             $test_author = new Author($name, $id);
             $test_author->save();
-            $new_name = "Economics";
+            $new_name = "Jon Clancy";
 
             //Act
             $test_author->updateAuthor($new_name);
 
             //Assert
-            $this->assertEquals("Economics", $test_author->getName());
+            $this->assertEquals("Jon Clancy", $test_author->getName());
         }
 
         function testDeleteAuthor()
         {
             //Arrange
-            $name = "Econ";
+            $name = "John Clancy";
             $id = 2;
 
-            $name2 = "Physics";
+            $name2 = "Robert Ludlum";
             $id2 = 3;
 
             $test_author = new Author($name, $id);
@@ -123,10 +123,10 @@
         function testFindAuthor()
         {
             //Arrange
-            $name = "Econ";
+            $name = "John Clancy";
             $id = 2;
 
-            $name2 = "Physics";
+            $name2 = "Robert Ludlum";
             $id2 = 3;
 
             $test_author = new Author($name, $id);
@@ -140,8 +140,6 @@
             //Assert
             $this->assertEquals($test_author, $result);
         }
-
-
 
     }
 
