@@ -5,12 +5,12 @@
 <body>
     <h1>{{ book.getTitle }}</h1>
 
-    {% if books is not empty %}
-        <p>Here are the books for this book:</p>
+    {% if authors is not empty %}
+        <p>Here are the authors for this book:</p>
         <ul>
-            {% for book in books %}
+            {% for author in authors %}
                 <li>
-                    {{ book.getTitle }}
+                    {{ author.getName }}
                 </li>
             {% endfor %}
         </ul>

@@ -57,6 +57,12 @@ $app['debug'] = true;
         return $app['twig']->render('authors.html.twig', array('author' => $author, 'authors' => Author::getAll(), 'form' => false));
     });
 
+    $app->post("/delete_authors", function() use ($app) {
+        Author::deleteAll();
+        return $app['twig']->render('index.html.twig');
+    });
+
+    //add books to author
     $app->post("/add_books", function() use ($app) {
         $author = Author::findAuthor($_POST['author_id']);
         $book = Book::findBook($_POST['book_id']);
@@ -78,7 +84,7 @@ $app['debug'] = true;
 
     $app->get("/book/{id}", function($id) use ($app) {
         $book = Book::findBook($id);
-        return $app['twig']->render('book.html.twig', array('book' => $book, 'books' => $book -> getAuthor(), 'all_authors' => Author::getAll()));
+        return $app['twig']->render('book.html.twig', array('book' => $book, 'books' => $book -> getAuthor(), 'all_authors' => Author::getAll(), 'authors' => $book->getAuthor()));
     });
 
     $app->get("/book/{id}/edit", function($id) use ($app) {
@@ -97,6 +103,19 @@ $app['debug'] = true;
         $book->deleteBook();
         return $app['twig']->render('books.html.twig', array('book' => $book, 'books' => Book::getAll(), 'form' => false));
     });
+
+    $app->post("/add_authors", function() use ($app) {
+        $author = Author::findAuthor($_POST['author_id']);
+        $book = Book::findBook($_POST['book_id']);
+        $book->addAuthor($author);
+        return $app['twig']->render('book.html.twig', array('book' => $book, 'books' => Book::getAll(), 'authors' => $book->getAuthor(), 'all_authors' => Author::getAll()));
+    });
+
+    $app->post("/delete_books", function() use ($app) {
+        Book::deleteAll();
+        return $app['twig']->render('index.html.twig');
+    });
+
 
 
 
