@@ -62,17 +62,23 @@ $app['debug'] = true;
         return $app['twig']->render('books.html.twig', array('books' => Book::getAll(), 'form' => false));
     });
 
-    // $app->post("/books", function() use ($app) {
-    //     $name = $_POST['name'];
-    //     $new_book = new Book($name);
-    //     $new_book->save();
-    //     return $app['twig']->render('books.html.twig', array('books' => Book::getAll(), 'form' => false));
-    // });
-    //
-    // $app->get("/book/{id}", function($id) use ($app) {
-    //     $book = Book::findBook($id);
-    //     return $app['twig']->render('book.html.twig', array('book' => $book, 'books' => $book -> getBook(), 'all_books' => Book::getAll()));
-    // });
+    $app->post("/books", function() use ($app) {
+        $title = $_POST['title'];
+        $new_book = new Book($title);
+        $new_book->save();
+        return $app['twig']->render('books.html.twig', array('books' => Book::getAll(), 'form' => false));
+    });
+
+    $app->get("/author/{id}", function($id) use ($app) {
+        $author = Author::findAuthor($id);
+        return $app['twig']->render('author.html.twig', array('author' => $author, 'books' => $author -> getBook(), 'all_books' => Book::getAll()));
+    });
+
+
+    $app->get("/book/{id}", function($id) use ($app) {
+        $book = Book::findBook($id);
+        return $app['twig']->render('book.html.twig', array('book' => $book, 'books' => $book -> getAuthor(), 'all_authors' => Author::getAll()));
+    });
     //
     // $app->get("/book/{id}/edit", function($id) use ($app) {
     //     $book = Book::findBook($id);
@@ -81,7 +87,7 @@ $app['debug'] = true;
     //
     // $app->patch("/books/updated", function() use ($app) {
     //     $book_to_edit = Book::findBook($_POST['current_bookId']);
-    //     $book_to_edit->updateBook($_POST['name']);
+    //     $book_to_edit->updateBook($_POST['title']);
     //     return $app['twig']->render('books.html.twig', array('book' => $book_to_edit, 'books' => Book::getAll(), 'form' => false));
     // });
     //

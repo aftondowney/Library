@@ -1,0 +1,47 @@
+<html>
+<head>
+    <title>Books</title>
+</head>
+<body>
+    <h1>Books</h1>
+
+    {% if books is not empty %}
+        <p>Here are all your books:</p>
+        <ul>
+            {% for book in books %}
+              <li>
+                <a href="/book/{{ book.getId }}">{{ book.getTitle }}</a><br>
+                <button><a href='/book/{{ book.getId }}/edit'>Edit</a></button>
+                <form action="/book/{{ book.getId }}/delete" method="post">
+                <input name="_method" type="hidden" value="delete">
+                <button type="submit">Delete</button>
+                </form>
+              </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+          <h3>There are no books yet, add some!</h3>
+    {% endif %}
+
+    <form action='/books' method='post'>
+        <label for='title'>Book title:</label>
+        <input id='title' name='title' type='text'>
+
+        <button type='submit'>Add</button>
+    </form>
+    <form action='/delete_books' method='post'>
+        <button type='submit'>Clear</button>
+    </form>
+
+    {% if form %}
+      <form action="/books/updated" method="post">
+      <input name="_method" type="hidden" value="patch">
+      <input name="current_bookId" type="hidden" value="{{ book.getId() }}">
+      <input type="text" name="title">
+      <button type="submit" name="button">Edit Title</button>
+      </form>
+    {% endif %}
+
+    <p><a href='/'>Home</a></p>
+</body>
+</html>

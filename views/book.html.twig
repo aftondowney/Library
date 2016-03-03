@@ -1,0 +1,36 @@
+<html>
+<head>
+    <title>{{ book.getTitle }}</title>
+</head>
+<body>
+    <h1>{{ book.getTitle }}</h1>
+
+    {% if books is not empty %}
+        <p>Here are the books for this book:</p>
+        <ul>
+            {% for book in books %}
+                <li>
+                    {{ book.getTitle }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <h4>Add an Author to this Book:</h4>
+
+    <form action='/add_authors' method='post'>
+        <input id="book_id" name="book_id" type="hidden" value="{{ book.getId }}">
+        <label for="author_id">Select an author</label>
+        <select id='author_id' name='author_id' type='text'>
+          {% for author in all_authors %}
+            <option value="{{ author.getId }}"> {{ author.getName }} </option>
+          {% endfor %}
+        </select>
+        <button type='submit'>Add author</button>
+    </form>
+
+    <p><a href="/book/{{ book.getId }}/edit">Edit this book</a></p>
+
+    <p><a href='/'>Home</a></p>
+</body>
+</html>
