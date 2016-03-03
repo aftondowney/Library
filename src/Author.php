@@ -56,10 +56,10 @@
 
         function deleteAuthor()
         {
-            $GLOBALS['DB']->exec("DELETE FROM authors WHERE id-={$this->getId()};");
+            $GLOBALS['DB']->exec("DELETE FROM authors WHERE id = {$this->getId()};");
         }
 
-        function findAuthor($search_id)
+         static function findAuthor($search_id)
         {
             $found_author = null;
             $authors = Author::getAll();
