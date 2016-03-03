@@ -1,0 +1,36 @@
+<html>
+<head>
+    <title>Authors</title>
+</head>
+<body>
+    <h1>Authors</h1>
+
+    {% if authors is not empty %}
+        <p>Here are all your authors:</p>
+        <ul>
+            {% for author in authors %}
+              <li>
+                <a href="/author/{{ author.getId }}">{{ author.getName }}</a><br>
+                <button><a href='/author/{{ author.getId }}/edit'>Edit</a></button>
+                <form action="/author/{{ author.getId }}/delete" method="post">
+                <input name="_method" type="hidden" value="delete">
+                <button type="submit">Delete</button>
+                </form>
+              </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form action='/authors' method='post'>
+        <label for='name'>Author name:</label>
+        <input id='name' name='name' type='text'>
+
+        <button type='submit'>Add</button>
+    </form>
+    <form action='/delete_authors' method='post'>
+        <button type='submit'>Clear</button>
+    </form>
+
+    <p><a href='/'>Home</a></p>
+</body>
+</html>
