@@ -57,6 +57,13 @@ $app['debug'] = true;
         return $app['twig']->render('authors.html.twig', array('author' => $author, 'authors' => Author::getAll(), 'form' => false));
     });
 
+    $app->post("/add_books", function() use ($app) {
+        $author = Author::findAuthor($_POST['author_id']);
+        $book = Book::findBook($_POST['book_id']);
+        $author->addBook($book);
+        return $app['twig']->render('author.html.twig', array('author' => $author, 'books' => $author->getBook(), 'all_books' => Book::getAll()));
+      });
+
         //view/update/delete routes for Book
     $app->get("/books", function() use ($app) {
         return $app['twig']->render('books.html.twig', array('books' => Book::getAll(), 'form' => false));
@@ -69,33 +76,27 @@ $app['debug'] = true;
         return $app['twig']->render('books.html.twig', array('books' => Book::getAll(), 'form' => false));
     });
 
-    $app->get("/author/{id}", function($id) use ($app) {
-        $author = Author::findAuthor($id);
-        return $app['twig']->render('author.html.twig', array('author' => $author, 'books' => $author -> getBook(), 'all_books' => Book::getAll()));
-    });
-
-
     $app->get("/book/{id}", function($id) use ($app) {
         $book = Book::findBook($id);
         return $app['twig']->render('book.html.twig', array('book' => $book, 'books' => $book -> getAuthor(), 'all_authors' => Author::getAll()));
     });
-    //
-    // $app->get("/book/{id}/edit", function($id) use ($app) {
-    //     $book = Book::findBook($id);
-    //     return $app['twig']->render('books.html.twig', array('book' => $book, 'books' => Book::getAll(), 'form' => true));
-    // });
-    //
-    // $app->patch("/books/updated", function() use ($app) {
-    //     $book_to_edit = Book::findBook($_POST['current_bookId']);
-    //     $book_to_edit->updateBook($_POST['title']);
-    //     return $app['twig']->render('books.html.twig', array('book' => $book_to_edit, 'books' => Book::getAll(), 'form' => false));
-    // });
-    //
-    // $app->delete('/book/{id}/delete', function($id) use ($app) {
-    //     $book = Book::findBook($id);
-    //     $book->deleteBook();
-    //     return $app['twig']->render('books.html.twig', array('book' => $book, 'books' => Book::getAll(), 'form' => false));
-    // });
+
+    $app->get("/book/{id}/edit", function($id) use ($app) {
+        $book = Book::findBook($id);
+        return $app['twig']->render('books.html.twig', array('book' => $book, 'books' => Book::getAll(), 'form' => true));
+    });
+
+    $app->patch("/books/updated", function() use ($app) {
+        $book_to_edit = Book::findBook($_POST['current_bookId']);
+        $book_to_edit->updateBook($_POST['title']);
+        return $app['twig']->render('books.html.twig', array('book' => $book_to_edit, 'books' => Book::getAll(), 'form' => false));
+    });
+
+    $app->delete('/book/{id}/delete', function($id) use ($app) {
+        $book = Book::findBook($id);
+        $book->deleteBook();
+        return $app['twig']->render('books.html.twig', array('book' => $book, 'books' => Book::getAll(), 'form' => false));
+    });
 
 
 
