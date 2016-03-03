@@ -21,7 +21,7 @@
         protected function tearDown()
         {
             Author::deleteAll();
-            // Book::deleteAll();
+            Book::deleteAll();
         }
 
         function testSave()
@@ -139,6 +139,56 @@
 
             //Assert
             $this->assertEquals($test_author, $result);
+        }
+
+        function testAddBook()
+        {
+            //Arrange
+            $name = "John Clancy";
+            $id = null;
+            $test_author = new Author($name, $id);
+            $test_author->save();
+
+            $title = "The Hunt for the Blue October";
+            $id = 2;
+            $test_book = new Book($title, $id);
+            $test_book->save();
+
+            $title2 = "Rainbow Seven";
+            $id2 = 3;
+            $test_book2 = new Book($title2, $id2);
+            $test_book2->save();
+
+            //Act
+            $result = $test_author->addBook($test_book);
+
+            //Assert
+            $this->assertEquals( [$test_book], $test_author->getBook());
+        }
+
+        function testGetBook()
+        {
+            //Arrange
+            $name = "John Clancy";
+            $id = null;
+            $test_author = new Author($name, $id);
+            $test_author->save();
+
+            $title = "The Hunt for the Blue October";
+            $test_book = new Book($title, $id);
+            $test_book->save();
+
+            $title2 = "Rainbow Seven";
+            $test_book2 = new Book($title2, $id);
+            $test_book2->save();
+
+            //Act
+            $test_author->addBook($test_book);
+            $test_author->addBook($test_book2);
+            $result = $test_author->getBook();
+
+            //Assert
+            $this->assertEquals([$test_book, $test_book2], $result);
         }
 
     }

@@ -82,22 +82,22 @@
             $this->assertEquals([], $result);
         }
 
-        // function testUpdateBook()
-        // {
-        //     //Arrange
-        //     $title = "John Clancy";
-        //     $id = 2;
-        //
-        //     $test_book = new Book($title, $id);
-        //     $test_book->save();
-        //     $new_title = "Jon Clancy";
-        //
-        //     //Act
-        //     $test_book->updateBook($new_title);
-        //
-        //     //Assert
-        //     $this->assertEquals("Jon Clancy", $test_book->getTitle());
-        // }
+        function testUpdateBook()
+        {
+            //Arrange
+            $title = "John Clancy";
+            $id = 2;
+
+            $test_book = new Book($title, $id);
+            $test_book->save();
+            $new_title = "Jon Clancy";
+
+            //Act
+            $test_book->updateBook($new_title);
+
+            //Assert
+            $this->assertEquals("Jon Clancy", $test_book->getTitle());
+        }
 
         function testDeleteBook()
         {
