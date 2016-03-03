@@ -19,6 +19,8 @@
               </li>
             {% endfor %}
         </ul>
+        {% else %}
+          <h3>There are no authors yet, add some!</h3>
     {% endif %}
 
     <form action='/authors' method='post'>
@@ -30,6 +32,15 @@
     <form action='/delete_authors' method='post'>
         <button type='submit'>Clear</button>
     </form>
+
+    {% if form %}
+      <form action="/authors/updated" method="post">
+      <input name="_method" type="hidden" value="patch">
+      <input name="current_authorId" type="hidden" value="{{ author.getId() }}">
+      <input type="text" name="name">
+      <button type="submit" name="button">Edit Name</button>
+      </form>
+    {% endif %}
 
     <p><a href='/'>Home</a></p>
 </body>
