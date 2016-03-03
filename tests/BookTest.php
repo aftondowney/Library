@@ -141,6 +141,53 @@
             $this->assertEquals($test_book, $result);
         }
 
+        function testAddAuthor()
+        {
+            //Arrange
+            $name = "John Clancy";
+            $id = null;
+            $test_author = new Author($name, $id);
+            $test_author->save();
+
+            $title = "The Hunt for the Blue October";
+            $test_book = new Book($title, $id);
+            $test_book->save();
+
+            $title2 = "Rainbow Seven";
+            $test_book2 = new Book($title2, $id);
+            $test_book2->save();
+            //Act
+            $test_book->addAuthor($test_author);
+
+            //Assert
+            $this->assertEquals([$test_author], $test_book->getAuthor());
+        }
+
+        function testGetAuthor()
+        {
+            //Arrange
+            $name = "John Clancy";
+            $id = null;
+            $test_author = new Author($name, $id);
+            $test_author->save();
+
+            $name2 = "Robert Ludlum";
+            $test_author2 = new Author($name2, $id);
+            $test_author2->save();
+
+            $title = "The Hunt for the Blue October";
+            $test_book = new Book($title, $id);
+            $test_book->save();
+
+
+            //Act
+            $test_book->addAuthor($test_author);
+            $test_book->addAuthor($test_author2);
+
+            //Assert
+            $this->assertEquals([$test_author, $test_author2], $test_book->getAuthor());
+        }
+
     }
 
 ?>
